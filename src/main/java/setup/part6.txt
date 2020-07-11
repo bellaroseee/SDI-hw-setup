@@ -1,0 +1,22 @@
+1. Why did Fibonacci fail the testThrowsIllegalArgumentException test? What (if anything) did you have to do to fix it?
+    testThrowsIllegalArgumentException ensures that no IllegalArgumentException is thrown when n is 0 or 1.
+    However, in the original code, IllegalArgumentException is thrown when n <= 0. This causes testIllegalArgumentException
+    to fail because the line "throw new IllegalArgumentException(n + " is negative");" is then executed even when 0 is not
+    a negative number.
+    Fix: change to n < 0 (only negative number)
+
+2. Why did Fibonacci fail the testBaseCase test? What (if anything) did you have to do to fix it?
+    testBaseCase fail because of the same issue with #1. The 0th and 1st term of Fibonacci sequence
+    should be 1. Because of the n<=0 in the original code, when calling the getFibTerm(0), IllegalArgumentException
+    is thrown.
+    Fix: same as #1. (already done)
+
+3. Why did Fibonacci fail the testInductiveCase test? What (if anything) did you have to do to fix it?
+    There were 2 bugs in getFibTerm that causes testInductiveCase to fail.
+    First, only the 0th and 1st term of Fibonacci sequence should be 1. the original code has n <= 2 to return 1.
+    this causes getFibTerm(2) to return 1 too.
+    Fix : change to n <= 1
+    Second, the each subsequent term after the first 2 terms of Fibonacci's sequence is the sum of the previous 2 terms.
+    However, the original code has the subtraction of the first 2 terms.
+        i.e. "getFibTerm(n - 1) - getFibTerm(n - 2)" instead of "getFibTerm(n - 1) + getFibTerm(n - 2)"
+    Fix : change - to +
